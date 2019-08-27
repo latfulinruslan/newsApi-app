@@ -1,0 +1,2 @@
+# newsApi-app
+Test task
