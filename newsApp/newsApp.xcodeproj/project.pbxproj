@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC3C55476CEA3E91B5022EEC /* Pods_newsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */; };
 		BCF4FDEA23157B3500152C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FDE923157B3500152C37 /* AppDelegate.swift */; };
 		BCF4FDEE23157B3500152C37 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FDED23157B3500152C37 /* ViewController.swift */; };
 		BCF4FDF123157B3500152C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF4FDEF23157B3500152C37 /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		508C86B8A5C9FF370A1457B9 /* Pods-newsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsApp.debug.xcconfig"; path = "Target Support Files/Pods-newsApp/Pods-newsApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_newsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF4FDE623157B3500152C37 /* newsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF4FDE923157B3500152C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCF4FDED23157B3500152C37 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		BCF4FDF523157B3600152C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCF4FDF723157B3600152C37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCF4FE0123157D0300152C37 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		E556A3CB477272C30A7101A8 /* Pods-newsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsApp.release.xcconfig"; path = "Target Support Files/Pods-newsApp/Pods-newsApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC3C55476CEA3E91B5022EEC /* Pods_newsApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AAF69A8FBCDE9A27547B3F95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BCF4FDDD23157B3500152C37 = {
 			isa = PBXGroup;
 			children = (
 				BCF4FDE823157B3500152C37 /* newsApp */,
 				BCF4FDE723157B3500152C37 /* Products */,
+				D0B9C5B8A2F2516DAF3EB321 /* Pods */,
+				AAF69A8FBCDE9A27547B3F95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +114,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D0B9C5B8A2F2516DAF3EB321 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				508C86B8A5C9FF370A1457B9 /* Pods-newsApp.debug.xcconfig */,
+				E556A3CB477272C30A7101A8 /* Pods-newsApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +131,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCF4FDFA23157B3600152C37 /* Build configuration list for PBXNativeTarget "newsApp" */;
 			buildPhases = (
+				C8854CC532E8F5169FCAF1A8 /* [CP] Check Pods Manifest.lock */,
 				BCF4FDE223157B3500152C37 /* Sources */,
 				BCF4FDE323157B3500152C37 /* Frameworks */,
 				BCF4FDE423157B3500152C37 /* Resources */,
+				40054BF95A54C996A4C938AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,6 +191,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		40054BF95A54C996A4C938AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-newsApp/Pods-newsApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newsApp/Pods-newsApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8854CC532E8F5169FCAF1A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-newsApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BCF4FDE223157B3500152C37 /* Sources */ = {
@@ -314,6 +388,7 @@
 		};
 		BCF4FDFB23157B3600152C37 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 508C86B8A5C9FF370A1457B9 /* Pods-newsApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -332,6 +407,7 @@
 		};
 		BCF4FDFC23157B3600152C37 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E556A3CB477272C30A7101A8 /* Pods-newsApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
