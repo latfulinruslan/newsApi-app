@@ -10,37 +10,41 @@
         <scene sceneID="feN-dT-VoD">
             <objects>
                 <tableViewController id="Pv1-2Y-OsH" customClass="NewsViewController" customModule="newsApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="130" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="5" id="Ihd-y8-okV">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Ihd-y8-okV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ArticleCell" rowHeight="130" id="fsi-Wu-PL7" customClass="ArticleTableViewCell" customModule="newsApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="130"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ArticleCell" id="fsi-Wu-PL7" customClass="ArticleTableViewCell" customModule="newsApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fsi-Wu-PL7" id="CcC-ft-Gf0">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="st5-26-kYa">
-                                            <rect key="frame" x="20" y="11" width="109" height="108"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="st5-26-kYa">
+                                            <rect key="frame" x="20" y="11" width="128" height="138"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="109" id="6ct-Ow-eAv"/>
+                                                <constraint firstAttribute="width" constant="128" id="6ct-Ow-eAv"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="15"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDG-UZ-9vS" customClass="LimitedCharaterTextView" customModule="newsApp" customModuleProvider="target">
-                                            <rect key="frame" x="137" y="34" width="257" height="27"/>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="JPB-R3-5Y6">
+                                            <rect key="frame" x="156" y="11" width="238" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sDG-UZ-9vS" customClass="LimitedCharaterTextView" customModule="newsApp" customModuleProvider="target">
+                                            <rect key="frame" x="156" y="36.5" width="238" height="27"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="JPB-R3-5Y6">
-                                            <rect key="frame" x="137" y="11" width="257" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="st5-26-kYa" firstAttribute="leading" secondItem="CcC-ft-Gf0" secondAttribute="leadingMargin" id="6fv-NY-BYg"/>
@@ -52,7 +56,6 @@
                                         <constraint firstItem="st5-26-kYa" firstAttribute="top" secondItem="CcC-ft-Gf0" secondAttribute="topMargin" id="ebl-4H-BQ7"/>
                                         <constraint firstItem="sDG-UZ-9vS" firstAttribute="top" relation="lessThanOrEqual" secondItem="JPB-R3-5Y6" secondAttribute="bottom" constant="5" id="gHy-5f-dcd"/>
                                         <constraint firstItem="sDG-UZ-9vS" firstAttribute="top" secondItem="JPB-R3-5Y6" secondAttribute="bottom" constant="5" id="pMY-dl-Fpc"/>
-                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="CcC-ft-Gf0" secondAttribute="bottomMargin" id="ujk-hh-Us7"/>
                                         <constraint firstItem="JPB-R3-5Y6" firstAttribute="leading" secondItem="st5-26-kYa" secondAttribute="trailing" constant="8" id="xj3-iL-Kn9"/>
                                     </constraints>
                                 </tableViewCellContentView>

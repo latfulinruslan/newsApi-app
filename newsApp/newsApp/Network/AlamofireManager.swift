@@ -40,4 +40,17 @@ class AlamofireManager {
             }
         }
     }
+    
+    static func  getImage(from url: String, completion: @escaping (_ data: Data) -> ()) {
+        guard let url = URL(string: url)  else { return }
+        AF.request(url, method: .get).validate().responseData { (data) in
+            switch data.result {
+            case.success(let data):
+                completion(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
 }

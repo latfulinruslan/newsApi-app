@@ -8,12 +8,18 @@
 
 import UIKit
 
-class NewsViewController: UITableViewController, UISearchResultsUpdating {
+class NewsViewController: UITableViewController, UISearchResultsUpdating, UITextViewDelegate {
     
     var resultSearchController = UISearchController()
     
     func updateSearchResults(for searchController: UISearchController) {
         
+    }
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+                tableView.estimatedRowHeight = 130
+                tableView.rowHeight = UITableView.automaticDimension
+        
+        return true
     }
     
     var articles = [Article]()
@@ -25,13 +31,16 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         
         configureSearchBar()
         
+        
+//        self.tableView.rowHeight = UITableView.automaticDimension
+//        self.tableView.estimatedRowHeight = 130
+        
         AlamofireManager.getNews(from: "https://newsapi.org/v2/everything?q=bitcoin&apiKey=e0d394f9c82f4b14a62c2823b6709d97") { (articles) in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        
         
         // "https://newsapi.org/v2/everything?q=bitcoin&apiKey=e0d394f9c82f4b14a62c2823b6709d97")
     }
@@ -48,12 +57,6 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
     }
 
     // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return articles.count
@@ -61,14 +64,34 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
-
-        cell.titleLabel.text = articles[indexPath.row].title
-        //print(articles[indexPath.row].title)
-        //cell.descriptionTextView.text = articles[indexPath.row].description
-        cell.descriptionTextView.limitedText = articles[indexPath.row].description
         
+        let article = articles[indexPath.row]
 
+        cell.titleLabel.text = article.title
+        cell.descriptionTextView.limitedText = article.description
+        
+        if (article.urlToImage != nil) {
+            DispatchQueue.main.async {
+                AlamofireManager.getImage(from: article.urlToImage!) { (data) in
+                    cell.articleImageView.image = UIImage(data: data)
+                }
+            }
+        } else {
+            cell.articleImageView.image = #imageLiteral(resourceName: "photoPlaceholder")
+        }
+        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotation = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+        cell.layer.transform = rotation
+        cell.alpha = 0.5
+        
+        UIView.animate(withDuration: 1.0) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
     }
 
     /*
@@ -118,6 +141,3 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
 
 }
 
-extension UILabel {
-
-}

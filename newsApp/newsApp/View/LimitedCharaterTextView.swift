@@ -27,7 +27,7 @@ class LimitedCharaterTextView: UITextView {
         let seeMoreString = NSMutableAttributedString(string: " Show More")
         let range = NSRange(location: 0, length: seeMoreString.length)
         seeMoreString.addAttribute(NSAttributedString.Key.font,
-                                   value: UIFont(name: "Helvetica", size: 12)!,
+                                   value: UIFont.boldSystemFont(ofSize: 12),
                                    range: range)
         seeMoreString.addAttribute(NSAttributedString.Key.link,
                                    value: "seeMore",
@@ -92,12 +92,14 @@ class LimitedCharaterTextView: UITextView {
         textContainer.lineFragmentPadding = 0
         isEditable = false
         isSelectable = true
+        
     }
 }
 
 extension LimitedCharaterTextView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         attributedText = NSAttributedString(string: limitedText!)
+        textView.autoresizesSubviews = true
         print("link pressed")
         return false
     }
