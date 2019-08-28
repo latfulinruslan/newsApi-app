@@ -11,10 +11,10 @@ import Alamofire
 
 class AlamofireManager {
     
-    static func getNews(from url: String, completion: @escaping (_ articles: [Article]) -> ()) {
+    static func getNews(from url: String, params: Parameters?, completion: @escaping (_ articles: [Article]) -> ()) {
         guard let url = URL(string: url) else { return }
         
-        AF.request(url).validate().responseJSON { (response) in
+        AF.request(url, parameters: params).validate().responseJSON { (response) in
             
             switch response.result {
             case .success(let value):

@@ -33,11 +33,13 @@ class ArticleTableViewCell: UITableViewCell {
         layer.cornerRadius = 15
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 2
+        layer.shadowRadius = 5
 
         layer.shadowOpacity = 1
         layer.masksToBounds = false;
         clipsToBounds = false;
     }
 }
+
+
 

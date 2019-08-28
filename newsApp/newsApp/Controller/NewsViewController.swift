@@ -14,23 +14,45 @@ class NewsViewController: UITableViewController, UISearchBarDelegate, UITextView
     var searchArticles = [Article]()
     var isSearching = false
     
+    lazy var currentDate = getCurrentDate()
+    lazy var params: [String: Any] = [
+        "language" : "ru",
+        "from" : currentDate,
+    ]
+    let newsAPI = "https://newsapi.org/v2/top-headlines?apiKey=e0d394f9c82f4b14a62c2823b6709d97"
     var searchController = UISearchController()
-    
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureSearchBar()
-        
-        AlamofireManager.getNews(from: "https://newsapi.org/v2/everything?q=bitcoin&apiKey=e0d394f9c82f4b14a62c2823b6709d97") { (articles) in
+
+        AlamofireManager.getNews(from: newsAPI, params: params) { (articles) in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        
-        // "https://newsapi.org/v2/everything?q=bitcoin&apiKey=e0d394f9c82f4b14a62c2823b6709d97")
+    }
+    
+    private func getCurrentDate() -> String {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let formattedDate = format.string(from: date)
+        print(formattedDate)
+        return formattedDate
+    }
+    
+    
+    @IBAction func refreshAction(_ sender: UIRefreshControl) {
+        AlamofireManager.getNews(from: newsAPI, params: params) { (articles) in
+            self.articles = articles
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        sender.endRefreshing()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -103,28 +125,6 @@ class NewsViewController: UITableViewController, UISearchBarDelegate, UITextView
         }
     }
     */
-    
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        if searchBar.text == nil || searchBar.text == "" {
-//            isSearching = false
-//            //view.endEditing(true)
-//            searchArticles.removeAll()
-//            tableView.reloadData()
-//        } else {
-//            var count = 0
-//            isSearching = true
-//            for article in articles where article.title!.contains(searchBar.text!){
-//                searchArticles.append(article)
-//                count += 1
-//            }
-//            print(count)
-//            tableView.reloadData()
-//        }
-//    }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-    }
-    
 
     /*
     // Override to support conditional editing of the table view.
