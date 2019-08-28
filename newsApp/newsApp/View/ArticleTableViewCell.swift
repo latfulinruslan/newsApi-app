@@ -28,20 +28,8 @@ class ArticleTableViewCell: UITableViewCell {
         }
     }
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        layer.cornerRadius = 15
-//        layer.shadowOffset = CGSize(width: 0, height: 0)
-//        layer.shadowColor = UIColor.black.cgColor
-//        layer.shadowRadius = 2
-//
-//        layer.shadowOpacity = 1
-//        layer.masksToBounds = false;
-//        clipsToBounds = false;
-//    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         layer.cornerRadius = 15
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowColor = UIColor.black.cgColor

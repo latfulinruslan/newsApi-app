@@ -8,32 +8,20 @@
 
 import UIKit
 
-class NewsViewController: UITableViewController, UISearchResultsUpdating, UITextViewDelegate {
-    
-    var resultSearchController = UISearchController()
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-                tableView.estimatedRowHeight = 130
-                tableView.rowHeight = UITableView.automaticDimension
-        
-        return true
-    }
+class NewsViewController: UITableViewController, UISearchBarDelegate, UITextViewDelegate, UISearchResultsUpdating {
     
     var articles = [Article]()
+    var searchArticles = [Article]()
+    var isSearching = false
     
-    @IBOutlet weak var descriptionLabel: UILabel!
+    var searchController = UISearchController()
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureSearchBar()
-        
-        
-//        self.tableView.rowHeight = UITableView.automaticDimension
-//        self.tableView.estimatedRowHeight = 130
         
         AlamofireManager.getNews(from: "https://newsapi.org/v2/everything?q=bitcoin&apiKey=e0d394f9c82f4b14a62c2823b6709d97") { (articles) in
             self.articles = articles
@@ -45,27 +33,47 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating, UIText
         // "https://newsapi.org/v2/everything?q=bitcoin&apiKey=e0d394f9c82f4b14a62c2823b6709d97")
     }
     
+    func updateSearchResults(for searchController: UISearchController) {
+        if searchController.searchBar.text == nil || searchController.searchBar.text == "" {
+            isSearching = false
+            view.endEditing(true)
+            searchArticles.removeAll()
+            tableView.reloadData()
+        } else {
+            isSearching = true
+            
+            searchArticles = articles.filter({ (article) -> Bool in
+                return article.title!.lowercased().contains(searchController.searchBar.text!.lowercased())
+            })
+            tableView.reloadData()
+        }
+    }
+    
     private func configureSearchBar() {
-        resultSearchController = ({
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
-            controller.searchBar.sizeToFit()
-            tableView.tableHeaderView = controller.searchBar
-
-            return controller
-        })()
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        tableView.tableHeaderView = searchController.searchBar
     }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if isSearching {
+            return searchArticles.count
+        }
         return articles.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
         
-        let article = articles[indexPath.row]
+        var article = Article()
+        
+        if isSearching {
+            article = searchArticles[indexPath.row]
+        } else {
+            article = articles[indexPath.row]
+        }
+         
 
         cell.titleLabel.text = article.title
         cell.descriptionTextView.limitedText = article.description
@@ -82,7 +90,8 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating, UIText
         
         return cell
     }
-    
+    // MARK: - Animation
+    /*
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let rotation = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
         cell.layer.transform = rotation
@@ -93,6 +102,29 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating, UIText
             cell.alpha = 1.0
         }
     }
+    */
+    
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        if searchBar.text == nil || searchBar.text == "" {
+//            isSearching = false
+//            //view.endEditing(true)
+//            searchArticles.removeAll()
+//            tableView.reloadData()
+//        } else {
+//            var count = 0
+//            isSearching = true
+//            for article in articles where article.title!.contains(searchBar.text!){
+//                searchArticles.append(article)
+//                count += 1
+//            }
+//            print(count)
+//            tableView.reloadData()
+//        }
+//    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.

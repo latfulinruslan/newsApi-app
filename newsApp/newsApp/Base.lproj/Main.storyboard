@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14854.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pv1-2Y-OsH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14854.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14806.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,22 +10,24 @@
         <scene sceneID="feN-dT-VoD">
             <objects>
                 <tableViewController id="Pv1-2Y-OsH" customClass="NewsViewController" customModule="newsApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Ihd-y8-okV">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="230" estimatedRowHeight="230" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Ihd-y8-okV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.4396514892578125" green="0.43644717335700989" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.01711973175406456" green="0.6089898943901062" blue="0.97030419111251831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ArticleCell" id="fsi-Wu-PL7" customClass="ArticleTableViewCell" customModule="newsApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="160"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ArticleCell" rowHeight="200" id="fsi-Wu-PL7" customClass="ArticleTableViewCell" customModule="newsApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fsi-Wu-PL7" id="CcC-ft-Gf0">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="st5-26-kYa">
-                                            <rect key="frame" x="20" y="11" width="128" height="138"/>
+                                            <rect key="frame" x="20" y="19" width="169" height="170"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="128" id="6ct-Ow-eAv"/>
+                                                <constraint firstAttribute="width" constant="169" id="KUl-aj-p0w"/>
+                                                <constraint firstAttribute="height" constant="170" id="MuA-Xf-MHj"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -34,32 +36,29 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="JPB-R3-5Y6">
-                                            <rect key="frame" x="156" y="11" width="238" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="197" y="19" width="197" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sDG-UZ-9vS" customClass="LimitedCharaterTextView" customModule="newsApp" customModuleProvider="target">
-                                            <rect key="frame" x="156" y="36.5" width="238" height="27"/>
+                                            <rect key="frame" x="197" y="42" width="197" height="27"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="st5-26-kYa" firstAttribute="leading" secondItem="CcC-ft-Gf0" secondAttribute="leadingMargin" id="6fv-NY-BYg"/>
-                                        <constraint firstItem="JPB-R3-5Y6" firstAttribute="trailing" secondItem="CcC-ft-Gf0" secondAttribute="trailingMargin" id="9VM-ux-EOV"/>
-                                        <constraint firstItem="st5-26-kYa" firstAttribute="bottom" secondItem="CcC-ft-Gf0" secondAttribute="bottomMargin" id="EYk-Vc-IwR"/>
-                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="leading" secondItem="st5-26-kYa" secondAttribute="trailing" constant="8" id="GPU-ez-frv"/>
-                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="trailing" secondItem="CcC-ft-Gf0" secondAttribute="trailingMargin" id="MdO-4u-8cl"/>
-                                        <constraint firstItem="JPB-R3-5Y6" firstAttribute="top" secondItem="CcC-ft-Gf0" secondAttribute="topMargin" id="YJe-0f-9zu"/>
-                                        <constraint firstItem="st5-26-kYa" firstAttribute="top" secondItem="CcC-ft-Gf0" secondAttribute="topMargin" id="ebl-4H-BQ7"/>
-                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="top" relation="lessThanOrEqual" secondItem="JPB-R3-5Y6" secondAttribute="bottom" constant="5" id="gHy-5f-dcd"/>
-                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="top" secondItem="JPB-R3-5Y6" secondAttribute="bottom" constant="5" id="pMY-dl-Fpc"/>
-                                        <constraint firstItem="JPB-R3-5Y6" firstAttribute="leading" secondItem="st5-26-kYa" secondAttribute="trailing" constant="8" id="xj3-iL-Kn9"/>
+                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="top" secondItem="JPB-R3-5Y6" secondAttribute="bottom" constant="5" id="6pz-qh-Kcn"/>
+                                        <constraint firstItem="st5-26-kYa" firstAttribute="top" secondItem="CcC-ft-Gf0" secondAttribute="topMargin" constant="8" id="DjK-u2-ACC"/>
+                                        <constraint firstItem="JPB-R3-5Y6" firstAttribute="trailing" secondItem="CcC-ft-Gf0" secondAttribute="trailingMargin" id="F42-LE-sRA"/>
+                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="trailing" secondItem="CcC-ft-Gf0" secondAttribute="trailingMargin" id="QRt-ft-fqn"/>
+                                        <constraint firstItem="sDG-UZ-9vS" firstAttribute="leading" secondItem="st5-26-kYa" secondAttribute="trailing" constant="8" id="S06-LR-G1a"/>
+                                        <constraint firstItem="JPB-R3-5Y6" firstAttribute="top" secondItem="CcC-ft-Gf0" secondAttribute="topMargin" constant="8" id="cz4-Bj-2da"/>
+                                        <constraint firstItem="JPB-R3-5Y6" firstAttribute="leading" secondItem="st5-26-kYa" secondAttribute="trailing" constant="8" id="jok-AB-8qL"/>
+                                        <constraint firstItem="st5-26-kYa" firstAttribute="leading" secondItem="CcC-ft-Gf0" secondAttribute="leadingMargin" id="yuX-vc-kSJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.55294117649999996" green="0.87843137250000003" blue="0.6588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="articleImageView" destination="st5-26-kYa" id="nA3-1t-bja"/>
                                     <outlet property="descriptionTextView" destination="sDG-UZ-9vS" id="ZAp-1Y-iTK"/>
