@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		AC3C55476CEA3E91B5022EEC /* Pods_newsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */; };
 		BCF4FDEA23157B3500152C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FDE923157B3500152C37 /* AppDelegate.swift */; };
-		BCF4FDEE23157B3500152C37 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FDED23157B3500152C37 /* ViewController.swift */; };
 		BCF4FDF123157B3500152C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF4FDEF23157B3500152C37 /* Main.storyboard */; };
 		BCF4FDF323157B3600152C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCF4FDF223157B3600152C37 /* Assets.xcassets */; };
 		BCF4FDF623157B3600152C37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF4FDF423157B3600152C37 /* LaunchScreen.storyboard */; };
 		BCF4FE0223157D0300152C37 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FE0123157D0300152C37 /* Article.swift */; };
 		BCF4FE062315880C00152C37 /* AlamofireManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FE052315880C00152C37 /* AlamofireManager.swift */; };
 		BCF4FE0923158A3C00152C37 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FE0823158A3C00152C37 /* SceneDelegate.swift */; };
+		BCF4FE0B2315CDAC00152C37 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FE0A2315CDAC00152C37 /* NewsViewController.swift */; };
+		BCF4FE0F2315D99000152C37 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FE0E2315D99000152C37 /* ArticleTableViewCell.swift */; };
+		BCF4FE132316833A00152C37 /* LimitedCharaterTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FE122316833A00152C37 /* LimitedCharaterTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +25,6 @@
 		A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_newsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF4FDE623157B3500152C37 /* newsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF4FDE923157B3500152C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BCF4FDED23157B3500152C37 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BCF4FDF023157B3500152C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BCF4FDF223157B3600152C37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCF4FDF523157B3600152C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -31,6 +32,9 @@
 		BCF4FE0123157D0300152C37 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		BCF4FE052315880C00152C37 /* AlamofireManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireManager.swift; sourceTree = "<group>"; };
 		BCF4FE0823158A3C00152C37 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		BCF4FE0A2315CDAC00152C37 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		BCF4FE0E2315D99000152C37 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
+		BCF4FE122316833A00152C37 /* LimitedCharaterTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LimitedCharaterTextView.swift; sourceTree = "<group>"; };
 		E556A3CB477272C30A7101A8 /* Pods-newsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsApp.release.xcconfig"; path = "Target Support Files/Pods-newsApp/Pods-newsApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +83,6 @@
 				BCF4FDFF23157BCD00152C37 /* View */,
 				BCF4FDFE23157BB200152C37 /* Controller */,
 				BCF4FDFD23157B8100152C37 /* Supporting Files */,
-				BCF4FDED23157B3500152C37 /* ViewController.swift */,
 				BCF4FDEF23157B3500152C37 /* Main.storyboard */,
 				BCF4FDF723157B3600152C37 /* Info.plist */,
 				BCF4FE072315881100152C37 /* Network */,
@@ -101,6 +104,7 @@
 		BCF4FDFE23157BB200152C37 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BCF4FE0A2315CDAC00152C37 /* NewsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -108,6 +112,8 @@
 		BCF4FDFF23157BCD00152C37 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BCF4FE0E2315D99000152C37 /* ArticleTableViewCell.swift */,
+				BCF4FE122316833A00152C37 /* LimitedCharaterTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,9 +265,11 @@
 			files = (
 				BCF4FE0923158A3C00152C37 /* SceneDelegate.swift in Sources */,
 				BCF4FE062315880C00152C37 /* AlamofireManager.swift in Sources */,
-				BCF4FDEE23157B3500152C37 /* ViewController.swift in Sources */,
 				BCF4FDEA23157B3500152C37 /* AppDelegate.swift in Sources */,
+				BCF4FE0B2315CDAC00152C37 /* NewsViewController.swift in Sources */,
+				BCF4FE0F2315D99000152C37 /* ArticleTableViewCell.swift in Sources */,
 				BCF4FE0223157D0300152C37 /* Article.swift in Sources */,
+				BCF4FE132316833A00152C37 /* LimitedCharaterTextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

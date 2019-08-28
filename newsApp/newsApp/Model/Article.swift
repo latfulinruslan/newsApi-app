@@ -9,11 +9,11 @@
 import Foundation
 
 struct Article {
-    var author: String
-    var title: String
-    var description: String
-    var publishedAt: String
-    var urlToImage: String
-    var url: String
-    var content: String
+    var author: String?
+    var title: String?
+    var description: String?
+    var publishedAt: String?
+    var urlToImage: String?
+    var url: String?
+    var content: String?
 }
