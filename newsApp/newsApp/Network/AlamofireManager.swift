@@ -51,6 +51,9 @@ class AlamofireManager {
                 print(error)
             }
         }
-        
+    }
+    
+    func isConected() -> Bool {
+        return NetworkReachabilityManager()!.isReachable
     }
 }

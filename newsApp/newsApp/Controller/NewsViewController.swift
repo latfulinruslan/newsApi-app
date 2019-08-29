@@ -31,6 +31,13 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         super.viewDidLoad()
 
         configureSearchBar()
+        
+        if networkManager.isConected() {
+            print("good")
+
+        } else {
+            print("gg")
+        }
 
         networkManager.getNews(from: newsAPI, params: params) { (articles) in
             self.articles = articles
@@ -86,6 +93,8 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         tableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.layer.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 0)
+        searchController.searchBar.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0).cgColor
     }
 
     // MARK: - Table view data source
@@ -119,7 +128,6 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         } else {
             cell.articleImageView.image = #imageLiteral(resourceName: "photoPlaceholder")
         }
-        
         return cell
     }
     
@@ -144,23 +152,18 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
             currDate = yesterdayDate
         }
         
-        if dayCounter < 7  {
-
-            print(yesterdayDate)
-                
-            params["from"] = yesterdayDate
-            params["to"] = yesterdayDate
-            print(params)
-                
-            networkManager.getNews(from: newsAPI, params: params) { (articles) in
-                self.articles += articles
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+        guard dayCounter < 7 else { return }
+        params["from"] = yesterdayDate
+        params["to"] = yesterdayDate
+            
+        networkManager.getNews(from: newsAPI, params: params) { (articles) in
+            self.articles += articles
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
-            dayCounter += 1
-            yesterdayDate = getYesterday(from: currDate)
         }
+        dayCounter += 1
+        yesterdayDate = getYesterday(from: currDate)
     }
 }
 
