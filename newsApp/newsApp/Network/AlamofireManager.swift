@@ -11,7 +11,7 @@ import Alamofire
 
 class AlamofireManager {
     
-    func getNews(from url: String, params: Parameters?, completion: @escaping (_ articles: [Article]) -> ()) {
+    func getNews(from url: String, params: Parameters?, completion: @escaping () -> ()) {
         guard let url = URL(string: url) else { return }
         
         AF.request(url, parameters: params).validate().responseJSON { (response) in
@@ -21,34 +21,36 @@ class AlamofireManager {
                 guard let rootDictionary = value as? Dictionary<String, Any> else { return }
                 guard let arrayOfArticles = rootDictionary["articles"] as? [Dictionary<String, Any>] else { return }
                 
-                var articles = [Article]()
-                
                 for item in arrayOfArticles {
                     let article = Article(author: item["author"] as? String,
-                                          title: item["title"] as? String,
-                                          description: item["description"] as? String,
+                                          title: item["title"] as! String,
+                                          desc: item["description"] as? String,
                                           publishedAt: item["publishedAt"] as? String,
                                           urlToImage: item["urlToImage"] as? String,
                                           url: item["url"] as? String,
-                                          content: item["content"] as? String)
-                    articles.append(article)
+                                          content: item["content"] as? String,
+                                        image: nil)
+                    StorageManager.saveObject(article)
                 }
-                
-                completion(articles)
+                completion()
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    func  getImage(from url: String, completion: @escaping (_ data: Data) -> ()) {
-        guard let url = URL(string: url)  else { return }
-        AF.request(url, method: .get).validate().responseData { (data) in
-            switch data.result {
-            case.success(let data):
-                completion(data)
-            case .failure(let error):
-                print(error)
+    func  loadImages() {
+        let articles = realm.objects(Article.self).filter("image == nil")
+        for article in articles where article.urlToImage != nil {
+            AF.request(article.urlToImage!).validate().response { (response) in
+                switch response.result {
+                case .success(let value):
+                    try! realm.write {
+                        article.image = value
+                    }
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }

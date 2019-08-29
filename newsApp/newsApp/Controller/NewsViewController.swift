@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewsViewController: UITableViewController, UISearchResultsUpdating {
     
-    var articles = [Article]()
+    var articles: Results<Article>!
     var searchArticles = [Article]()
     var isSearching = false
     
@@ -20,8 +21,8 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
     lazy var yesterdayDate = getYesterday(from: currentDate)
     lazy var params: [String: Any] = [
         "language" : "en",
-        "from" : yesterdayDate,
-        "to" : yesterdayDate
+        "from" : currentDate,
+        "to" : currentDate
     ]
     var dayCounter = 0
     let newsAPI = "https://newsapi.org/v2/everything?apiKey=e0d394f9c82f4b14a62c2823b6709d97&q=apple"
@@ -29,20 +30,12 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureSearchBar()
-        
-        if networkManager.isConected() {
-            print("good")
-
-        } else {
-            print("gg")
-        }
-
-        networkManager.getNews(from: newsAPI, params: params) { (articles) in
-            self.articles = articles
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        articles = realm.objects(Article.self)
+        if networkManager.isConected() && (articles.isEmpty) {
+            networkManager.getNews(from: newsAPI, params: params) {
+                self.articles = realm.objects(Article.self)
+                self.updateTable()
             }
         }
     }
@@ -62,14 +55,32 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     @IBAction func refreshAction(_ sender: UIRefreshControl) {
-        networkManager.getNews(from: newsAPI, params: params) { (articles) in
-            self.articles = articles
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        guard networkManager.isConected() else { return }
+        params = [
+            "language" : "en",
+            "from" : currentDate,
+            "to" : currentDate
+        ]
+        if !realm.isEmpty {
+            StorageManager.clearDB()
+        }
+        
+        networkManager.getNews(from: newsAPI, params: params) {
+            
+            
         }
         dayCounter = 0
-        sender.endRefreshing()
+        yesterdayDate = getYesterday(from: currentDate)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            sender.endRefreshing()
+            self.updateTable()
+        }
+    }
+    
+    private func updateTable() {
+        networkManager.loadImages()
+        tableView.reloadData()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -82,7 +93,7 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
             isSearching = true
             
             searchArticles = articles.filter({ (article) -> Bool in
-                return article.title!.lowercased().contains(searchController.searchBar.text!.lowercased())
+                return article.title.lowercased().contains(searchController.searchBar.text!.lowercased())
             })
             tableView.reloadData()
         }
@@ -92,9 +103,11 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
     private func configureSearchBar() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        searchController.searchBar.layer.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 0)
-        searchController.searchBar.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0).cgColor
+
     }
 
     // MARK: - Table view data source
@@ -102,68 +115,60 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         if isSearching {
             return searchArticles.count
         }
+        
+        guard articles != nil else { return 0 }
         return articles.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
         
-        var article = Article()
-        
-        if isSearching {
-            article = searchArticles[indexPath.row]
-        } else {
-            article = articles[indexPath.row]
-        }
+        let article = isSearching ? searchArticles[indexPath.row] : articles[indexPath.row]
+
          
         cell.titleLabel.text = article.title
-        cell.descriptionTextView.limitedText = article.description
+        cell.descriptionTextView.limitedText = article.desc
         
-        if (article.urlToImage != nil) {
-            DispatchQueue.main.async {
-                self.networkManager.getImage(from: article.urlToImage!) { (data) in
-                    cell.articleImageView.image = UIImage(data: data)
-                }
-            }
+        if let imageData = article.image{
+            cell.articleImageView.image = UIImage(data: imageData)
         } else {
             cell.articleImageView.image = #imageLiteral(resourceName: "photoPlaceholder")
         }
         return cell
     }
     
-    
+    // MARK: - Load previous news
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        // MARK: - Animation
-        let rotation = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
-        cell.layer.transform = rotation
-        cell.alpha = 0.5
-
-        UIView.animate(withDuration: 1.0) {
-            cell.layer.transform = CATransform3DIdentity
-            cell.alpha = 1.0
-        }
-        
-        // MARK: - Load previous news
+        guard networkManager.isConected() else { return }
         let lastItem = articles.count - 1
         guard indexPath.row == lastItem else { return }
-        var currDate = currentDate
-        if dayCounter != 0 {
-            currDate = yesterdayDate
-        }
         
-        guard dayCounter < 7 else { return }
-        params["from"] = yesterdayDate
-        params["to"] = yesterdayDate
             
-        networkManager.getNews(from: newsAPI, params: params) { (articles) in
-            self.articles += articles
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        let currDate = yesterdayDate
+                
+        guard dayCounter < 6 else { return }
+        
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.startAnimating()
+        spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+        self.tableView.tableFooterView = spinner
+        self.tableView.tableFooterView?.isHidden = false
+        let lastSectionIndex = tableView.numberOfSections - 1
+        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+        if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+            params["from"] = currDate
+            params["to"] = currDate
+                    
+            networkManager.getNews(from: newsAPI, params: params) {
+                DispatchQueue.main.async {
+                    spinner.stopAnimating()
+                    self.updateTable()
+                }
             }
+            dayCounter += 1
+            yesterdayDate = getYesterday(from: currDate)
         }
-        dayCounter += 1
-        yesterdayDate = getYesterday(from: currDate)
     }
 }
+
 
