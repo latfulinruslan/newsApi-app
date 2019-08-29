@@ -32,6 +32,7 @@ class AlamofireManager {
                                         image: nil)
                     StorageManager.saveObject(article)
                 }
+                self.loadImages()
                 completion()
             case .failure(let error):
                 print(error)
@@ -42,16 +43,19 @@ class AlamofireManager {
     func  loadImages() {
         let articles = realm.objects(Article.self).filter("image == nil")
         for article in articles where article.urlToImage != nil {
-            AF.request(article.urlToImage!).validate().response { (response) in
-                switch response.result {
-                case .success(let value):
-                    try! realm.write {
-                        article.image = value
+            DispatchQueue.main.async {
+                AF.request(article.urlToImage!).validate().response { (response) in
+                    switch response.result {
+                    case .success(let value):
+                        try! realm.write {
+                            article.image = value
+                        }
+                    case .failure(let error):
+                        print(error)
                     }
-                case .failure(let error):
-                    print(error)
                 }
             }
+            
         }
     }
     

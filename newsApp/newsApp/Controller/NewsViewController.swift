@@ -14,10 +14,11 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
     var articles: Results<Article>!
     var searchArticles = [Article]()
     var isSearching = false
+    var currentRowsInSection = Constants.rowInSection
     
     var networkManager = AlamofireManager()
     
-    lazy var currentDate = getString(from: Date())
+    lazy var currentDate = Date().getString()
     lazy var yesterdayDate = getYesterday(from: currentDate)
     lazy var params: [String: Any] = [
         "language" : "en",
@@ -25,33 +26,34 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         "to" : currentDate
     ]
     var dayCounter = 0
-    let newsAPI = "https://newsapi.org/v2/everything?apiKey=e0d394f9c82f4b14a62c2823b6709d97&q=apple"
+    let newsAPI = Constants.newsAPI
     var searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchBar()
-        articles = realm.objects(Article.self)
-        if networkManager.isConected() && (articles.isEmpty) {
-            networkManager.getNews(from: newsAPI, params: params) {
-                self.articles = realm.objects(Article.self)
-                self.updateTable()
-            }
+        DispatchQueue.main.async {
+            StorageManager.checkDB()
         }
-    }
-    
-    private func getString(from date: Date) -> String {
-        let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let formattedDate = format.string(from: date)
-        return formattedDate
+        if networkManager.isConected() && (articles == nil) {
+            DispatchQueue.global().async {
+                self.networkManager.getNews(from: self.newsAPI, params: self.params) {
+                    DispatchQueue.main.async {
+                        self.articles = realm.objects(Article.self)
+                        self.updateTable()
+                    }
+                }
+            }
+        } else {
+            articles = realm.objects(Article.self)
+        }
     }
     
     private func getYesterday(from date: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         guard let currDate = dateFormatter.date(from: date) else { return "" }
-        return getString(from: currDate.dayBefore)
+        return currDate.dayBefore.getString()
     }
     
     @IBAction func refreshAction(_ sender: UIRefreshControl) {
@@ -61,15 +63,16 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
             "from" : currentDate,
             "to" : currentDate
         ]
-        if !realm.isEmpty {
-            StorageManager.clearDB()
-        }
         
         networkManager.getNews(from: newsAPI, params: params) {
-            
+            DispatchQueue.global().async {
+                
+            }
+            self.articles = realm.objects(Article.self)
             
         }
         dayCounter = 0
+        currentRowsInSection = Constants.rowInSection
         yesterdayDate = getYesterday(from: currentDate)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
@@ -117,7 +120,7 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         }
         
         guard articles != nil else { return 0 }
-        return articles.count
+        return currentRowsInSection
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -140,13 +143,12 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - Load previous news
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard networkManager.isConected() else { return }
-        let lastItem = articles.count - 1
-        guard indexPath.row == lastItem else { return }
+        guard indexPath.row == currentRowsInSection - 1 else { return }
         
             
         let currDate = yesterdayDate
                 
-        guard dayCounter < 6 else { return }
+        guard currentRowsInSection < Constants.maxRows else { return }
         
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.startAnimating()
@@ -162,10 +164,12 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
             networkManager.getNews(from: newsAPI, params: params) {
                 DispatchQueue.main.async {
                     spinner.stopAnimating()
+                    self.dayCounter += 1
+                    self.currentRowsInSection += Constants.rowInSection
                     self.updateTable()
                 }
             }
-            dayCounter += 1
+            
             yesterdayDate = getYesterday(from: currDate)
         }
     }

@@ -11,6 +11,7 @@ import Foundation
 extension Date {
     static var yesterday: Date { return Date().dayBefore }
     static var tomorrow:  Date { return Date().dayAfter }
+    static var weekAgo: Date { return Date().weekAgo }
     var dayBefore: Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
     }
@@ -22,5 +23,15 @@ extension Date {
     }
     var month: Int {
         return Calendar.current.component(.month,  from: self)
+    }
+    var weekAgo: Date {
+        return Calendar.current.date(byAdding: .weekOfYear, value: -1, to: noon)!
+    }
+    
+    func getString() -> String {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let formattedDate = format.string(from: self)
+        return formattedDate
     }
 }

@@ -29,4 +29,8 @@ class Article: Object {
         self.content = content
         self.image = image
     }
+    
+    override class func primaryKey() -> String? {
+        return "title"
+    }
 }

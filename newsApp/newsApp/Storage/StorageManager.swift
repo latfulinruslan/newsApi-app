@@ -14,7 +14,7 @@ class StorageManager {
     
     static func saveObject(_ object: Article) {
         try! realm.write {
-            realm.add(object)
+            realm.add(object, update: .modified)
         }
     }
     
@@ -22,5 +22,17 @@ class StorageManager {
         try! realm.write {
             realm.deleteAll()
         }
+    }
+    
+    static func checkDB() {
+        let articles = realm.objects(Article.self)
+        try! realm.write {
+            for article in articles where article.publishedAt!.getDate() < Date().weekAgo {
+                print(article.publishedAt)
+                realm.delete(article)
+            }
+        }
+        
+        
     }
 }

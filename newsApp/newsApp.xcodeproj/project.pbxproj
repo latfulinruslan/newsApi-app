@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AC3C55476CEA3E91B5022EEC /* Pods_newsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */; };
 		BC7AC70423175F0300ABB88F /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7AC70323175F0300ABB88F /* StorageManager.swift */; };
+		BC7AC707231843AC00ABB88F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7AC706231843AC00ABB88F /* Constants.swift */; };
+		BC7AC70A23185B6700ABB88F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7AC70923185B6700ABB88F /* StringExtension.swift */; };
 		BCE8F2B9231728CE00C71371 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8F2B8231728CE00C71371 /* DateExtension.swift */; };
 		BCF4FDEA23157B3500152C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FDE923157B3500152C37 /* AppDelegate.swift */; };
 		BCF4FDF123157B3500152C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF4FDEF23157B3500152C37 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 		508C86B8A5C9FF370A1457B9 /* Pods-newsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsApp.debug.xcconfig"; path = "Target Support Files/Pods-newsApp/Pods-newsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_newsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7AC70323175F0300ABB88F /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		BC7AC706231843AC00ABB88F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BC7AC70923185B6700ABB88F /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		BCE8F2B8231728CE00C71371 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		BCF4FDE623157B3500152C37 /* newsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF4FDE923157B3500152C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,10 +74,19 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		BC7AC708231843BF00ABB88F /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				BC7AC706231843AC00ABB88F /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		BCE8F2BA231728D300C71371 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				BCE8F2B8231728CE00C71371 /* DateExtension.swift */,
+				BC7AC70923185B6700ABB88F /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -104,6 +117,7 @@
 				BCF4FDFE23157BB200152C37 /* Controller */,
 				BCF4FE072315881100152C37 /* Network */,
 				BC7AC70523175F0D00ABB88F /* Storage */,
+				BC7AC708231843BF00ABB88F /* Constants */,
 				BCE8F2BA231728D300C71371 /* Extensions */,
 				BCF4FDFD23157B8100152C37 /* Supporting Files */,
 				BCF4FDEF23157B3500152C37 /* Main.storyboard */,
@@ -294,9 +308,11 @@
 				BCF4FE062315880C00152C37 /* AlamofireManager.swift in Sources */,
 				BC7AC70423175F0300ABB88F /* StorageManager.swift in Sources */,
 				BCF4FDEA23157B3500152C37 /* AppDelegate.swift in Sources */,
+				BC7AC707231843AC00ABB88F /* Constants.swift in Sources */,
 				BCF4FE0B2315CDAC00152C37 /* NewsViewController.swift in Sources */,
 				BCF4FE0F2315D99000152C37 /* ArticleTableViewCell.swift in Sources */,
 				BCF4FE0223157D0300152C37 /* Article.swift in Sources */,
+				BC7AC70A23185B6700ABB88F /* StringExtension.swift in Sources */,
 				BCF4FE132316833A00152C37 /* LimitedCharaterTextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
