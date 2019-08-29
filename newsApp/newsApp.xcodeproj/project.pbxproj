@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AC3C55476CEA3E91B5022EEC /* Pods_newsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */; };
+		BCE8F2B9231728CE00C71371 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8F2B8231728CE00C71371 /* DateExtension.swift */; };
 		BCF4FDEA23157B3500152C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FDE923157B3500152C37 /* AppDelegate.swift */; };
 		BCF4FDF123157B3500152C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF4FDEF23157B3500152C37 /* Main.storyboard */; };
 		BCF4FDF323157B3600152C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCF4FDF223157B3600152C37 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		508C86B8A5C9FF370A1457B9 /* Pods-newsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsApp.debug.xcconfig"; path = "Target Support Files/Pods-newsApp/Pods-newsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A0C1675B8F24102D0D8EC146 /* Pods_newsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_newsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCE8F2B8231728CE00C71371 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		BCF4FDE623157B3500152C37 /* newsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF4FDE923157B3500152C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCF4FDF023157B3500152C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,6 +60,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BCE8F2BA231728D300C71371 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BCE8F2B8231728CE00C71371 /* DateExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BCF4FDDD23157B3500152C37 = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +94,7 @@
 				BCF4FDFE23157BB200152C37 /* Controller */,
 				BCF4FDFD23157B8100152C37 /* Supporting Files */,
 				BCF4FDEF23157B3500152C37 /* Main.storyboard */,
+				BCE8F2BA231728D300C71371 /* Extensions */,
 				BCF4FDF723157B3600152C37 /* Info.plist */,
 				BCF4FE072315881100152C37 /* Network */,
 			);
@@ -264,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF4FE0923158A3C00152C37 /* SceneDelegate.swift in Sources */,
+				BCE8F2B9231728CE00C71371 /* DateExtension.swift in Sources */,
 				BCF4FE062315880C00152C37 /* AlamofireManager.swift in Sources */,
 				BCF4FDEA23157B3500152C37 /* AppDelegate.swift in Sources */,
 				BCF4FE0B2315CDAC00152C37 /* NewsViewController.swift in Sources */,
@@ -421,7 +433,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rus.newsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rus.newsAPIApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -440,7 +452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rus.newsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rus.newsAPIApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -8,18 +8,23 @@
 
 import UIKit
 
-class NewsViewController: UITableViewController, UISearchBarDelegate, UITextViewDelegate, UISearchResultsUpdating {
+class NewsViewController: UITableViewController, UISearchResultsUpdating {
     
     var articles = [Article]()
     var searchArticles = [Article]()
     var isSearching = false
     
-    lazy var currentDate = getCurrentDate()
+    var networkManager = AlamofireManager()
+    
+    lazy var currentDate = getString(from: Date())
+    lazy var yesterdayDate = getYesterday(from: currentDate)
     lazy var params: [String: Any] = [
-        "language" : "ru",
-        "from" : currentDate,
+        "language" : "en",
+        "from" : yesterdayDate,
+        "to" : yesterdayDate
     ]
-    let newsAPI = "https://newsapi.org/v2/top-headlines?apiKey=e0d394f9c82f4b14a62c2823b6709d97"
+    var dayCounter = 0
+    let newsAPI = "https://newsapi.org/v2/everything?apiKey=e0d394f9c82f4b14a62c2823b6709d97&q=apple"
     var searchController = UISearchController()
     
     override func viewDidLoad() {
@@ -27,7 +32,7 @@ class NewsViewController: UITableViewController, UISearchBarDelegate, UITextView
 
         configureSearchBar()
 
-        AlamofireManager.getNews(from: newsAPI, params: params) { (articles) in
+        networkManager.getNews(from: newsAPI, params: params) { (articles) in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -35,23 +40,28 @@ class NewsViewController: UITableViewController, UISearchBarDelegate, UITextView
         }
     }
     
-    private func getCurrentDate() -> String {
-        let date = Date()
+    private func getString(from date: Date) -> String {
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let formattedDate = format.string(from: date)
-        print(formattedDate)
         return formattedDate
     }
     
+    private func getYesterday(from date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let currDate = dateFormatter.date(from: date) else { return "" }
+        return getString(from: currDate.dayBefore)
+    }
     
     @IBAction func refreshAction(_ sender: UIRefreshControl) {
-        AlamofireManager.getNews(from: newsAPI, params: params) { (articles) in
+        networkManager.getNews(from: newsAPI, params: params) { (articles) in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
+        dayCounter = 0
         sender.endRefreshing()
     }
     
@@ -71,6 +81,7 @@ class NewsViewController: UITableViewController, UISearchBarDelegate, UITextView
         }
     }
     
+    // MARK: - Search Bar
     private func configureSearchBar() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -96,13 +107,12 @@ class NewsViewController: UITableViewController, UISearchBarDelegate, UITextView
             article = articles[indexPath.row]
         }
          
-
         cell.titleLabel.text = article.title
         cell.descriptionTextView.limitedText = article.description
         
         if (article.urlToImage != nil) {
             DispatchQueue.main.async {
-                AlamofireManager.getImage(from: article.urlToImage!) { (data) in
+                self.networkManager.getImage(from: article.urlToImage!) { (data) in
                     cell.articleImageView.image = UIImage(data: data)
                 }
             }
@@ -112,64 +122,45 @@ class NewsViewController: UITableViewController, UISearchBarDelegate, UITextView
         
         return cell
     }
-    // MARK: - Animation
-    /*
+    
+    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        // MARK: - Animation
         let rotation = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
         cell.layer.transform = rotation
         cell.alpha = 0.5
-        
+
         UIView.animate(withDuration: 1.0) {
             cell.layer.transform = CATransform3DIdentity
             cell.alpha = 1.0
         }
+        
+        // MARK: - Load previous news
+        let lastItem = articles.count - 1
+        guard indexPath.row == lastItem else { return }
+        var currDate = currentDate
+        if dayCounter != 0 {
+            currDate = yesterdayDate
+        }
+        
+        if dayCounter < 7  {
+
+            print(yesterdayDate)
+                
+            params["from"] = yesterdayDate
+            params["to"] = yesterdayDate
+            print(params)
+                
+            networkManager.getNews(from: newsAPI, params: params) { (articles) in
+                self.articles += articles
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+            dayCounter += 1
+            yesterdayDate = getYesterday(from: currDate)
+        }
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 

@@ -11,7 +11,7 @@ import Alamofire
 
 class AlamofireManager {
     
-    static func getNews(from url: String, params: Parameters?, completion: @escaping (_ articles: [Article]) -> ()) {
+    func getNews(from url: String, params: Parameters?, completion: @escaping (_ articles: [Article]) -> ()) {
         guard let url = URL(string: url) else { return }
         
         AF.request(url, parameters: params).validate().responseJSON { (response) in
@@ -41,7 +41,7 @@ class AlamofireManager {
         }
     }
     
-    static func  getImage(from url: String, completion: @escaping (_ data: Data) -> ()) {
+    func  getImage(from url: String, completion: @escaping (_ data: Data) -> ()) {
         guard let url = URL(string: url)  else { return }
         AF.request(url, method: .get).validate().responseData { (data) in
             switch data.result {

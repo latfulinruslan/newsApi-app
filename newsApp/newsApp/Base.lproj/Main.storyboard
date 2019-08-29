@@ -36,13 +36,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="JPB-R3-5Y6">
-                                            <rect key="frame" x="197" y="19" width="197" height="18"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <rect key="frame" x="197" y="19" width="197" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" scrollEnabled="NO" keyboardDismissMode="onDrag" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDG-UZ-9vS" customClass="LimitedCharaterTextView" customModule="newsApp" customModuleProvider="target">
-                                            <rect key="frame" x="197" y="42" width="197" height="27"/>
+                                            <rect key="frame" x="197" y="43.5" width="197" height="170.5"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -53,6 +53,7 @@
                                         <constraint firstItem="st5-26-kYa" firstAttribute="top" secondItem="CcC-ft-Gf0" secondAttribute="topMargin" constant="8" id="DjK-u2-ACC"/>
                                         <constraint firstItem="JPB-R3-5Y6" firstAttribute="trailing" secondItem="CcC-ft-Gf0" secondAttribute="trailingMargin" id="F42-LE-sRA"/>
                                         <constraint firstItem="sDG-UZ-9vS" firstAttribute="trailing" secondItem="CcC-ft-Gf0" secondAttribute="trailingMargin" id="QRt-ft-fqn"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="sDG-UZ-9vS" secondAttribute="bottom" constant="5" id="Qs9-eB-59z"/>
                                         <constraint firstItem="sDG-UZ-9vS" firstAttribute="leading" secondItem="st5-26-kYa" secondAttribute="trailing" constant="8" id="S06-LR-G1a"/>
                                         <constraint firstItem="JPB-R3-5Y6" firstAttribute="top" secondItem="CcC-ft-Gf0" secondAttribute="topMargin" constant="8" id="cz4-Bj-2da"/>
                                         <constraint firstItem="JPB-R3-5Y6" firstAttribute="leading" secondItem="st5-26-kYa" secondAttribute="trailing" constant="8" id="jok-AB-8qL"/>

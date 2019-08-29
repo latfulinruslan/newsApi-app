@@ -16,7 +16,7 @@ class LimitedCharaterTextView: UITextView {
         }
     }
 
-    var characterLimit: Int = 100 {
+    var characterLimit: Int = 50 {
         didSet {
             update()
         }
@@ -26,7 +26,7 @@ class LimitedCharaterTextView: UITextView {
         let seeMoreString = NSMutableAttributedString(string: " Show More")
         let range = NSRange(location: 0, length: seeMoreString.length)
         seeMoreString.addAttribute(NSAttributedString.Key.font,
-                                   value: UIFont.boldSystemFont(ofSize: 12),
+                                   value: UIFont.boldSystemFont(ofSize: 14),
                                    range: range)
         seeMoreString.addAttribute(NSAttributedString.Key.link,
                                    value: "seeMore",
@@ -35,7 +35,7 @@ class LimitedCharaterTextView: UITextView {
         return seeMoreString
     }()
 
-    private let textFont = UIFont(name: "Helvetica", size: 12)!
+    private let textFont = UIFont(name: "Helvetica", size: 14)!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -95,6 +95,7 @@ class LimitedCharaterTextView: UITextView {
 extension LimitedCharaterTextView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         attributedText = NSAttributedString(string: limitedText!)
+        //textContainer.maximumNumberOfLines = 0
         return false
     }
 }
