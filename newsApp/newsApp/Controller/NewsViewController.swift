@@ -45,6 +45,10 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
                 }
             }
         } else {
+            let alertContlroller = UIAlertController(title: "Error", message: "Check internet conection", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertContlroller.addAction(ok)
+            present(alertContlroller, animated: true)
             articles = realm.objects(Article.self)
         }
     }
@@ -56,6 +60,7 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         return currDate.dayBefore.getString()
     }
     
+    // MARK: - Pull-To-Refresh
     @IBAction func refreshAction(_ sender: UIRefreshControl) {
         guard networkManager.isConected() else { return }
         params = [
@@ -65,11 +70,7 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         ]
         
         networkManager.getNews(from: newsAPI, params: params) {
-            DispatchQueue.global().async {
-                
-            }
             self.articles = realm.objects(Article.self)
-            
         }
         dayCounter = 0
         currentRowsInSection = Constants.rowInSection
@@ -80,12 +81,13 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
             self.updateTable()
         }
     }
-    
+    // MARK: - Updating Table
     private func updateTable() {
         networkManager.loadImages()
         tableView.reloadData()
     }
     
+    // MARK: - Search Bar
     func updateSearchResults(for searchController: UISearchController) {
         if searchController.searchBar.text == nil || searchController.searchBar.text == "" {
             isSearching = false
@@ -102,7 +104,6 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         }
     }
     
-    // MARK: - Search Bar
     private func configureSearchBar() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -145,11 +146,9 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
         guard networkManager.isConected() else { return }
         guard indexPath.row == currentRowsInSection - 1 else { return }
         
-            
         let currDate = yesterdayDate
                 
         guard currentRowsInSection < Constants.maxRows else { return }
-        
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.startAnimating()
         spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
@@ -169,7 +168,6 @@ class NewsViewController: UITableViewController, UISearchResultsUpdating {
                     self.updateTable()
                 }
             }
-            
             yesterdayDate = getYesterday(from: currDate)
         }
     }

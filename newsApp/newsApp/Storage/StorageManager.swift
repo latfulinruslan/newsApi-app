@@ -28,7 +28,6 @@ class StorageManager {
         let articles = realm.objects(Article.self)
         try! realm.write {
             for article in articles where article.publishedAt!.getDate() < Date().weekAgo {
-                print(article.publishedAt)
                 realm.delete(article)
             }
         }
